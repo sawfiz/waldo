@@ -1,29 +1,42 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Popup from './Popup';
 
 export default function Canvas() {
+  const canvasRef = useRef(null);
+  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  const containerRef = useRef(null);
+  const [clickPosition, setClickPosition] = useState({ x: null, y: null });
+
   const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const loadImage = () => {
+      const img = new Image();
+      img.src = '../../public/room.png'; // Replace with your image path
+      img.onload = () => {
+        setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
+      };
+    };
+
+    loadImage();
+  }, []);
 
   const handleMouseMove = (event) => {
     setShowPopup(false);
 
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / (rect.right - rect.left) * container.offsetWidth;
-    const y = (event.clientY - rect.top) / (rect.bottom - rect.top) * container.offsetHeight;
+    // Get the relative location of canvas to screen
+    const canvas = canvasRef.current;
+    const { left, top } = canvas.getBoundingClientRect();
 
-    setMousePosition({ x, y });
-  };
+    // Mouse location on screen
+    const mx = event.clientX;
+    const my = event.clientY;
+    setMousePosition({ mx, my });
 
-  const handleResize = () => {
-    const container = containerRef.current;
-    setContainerSize({
-      width: container.offsetWidth,
-      height: container.offsetHeight,
-    });
+    // Click position on canvas
+    const cx = event.clientX - left;
+    const cy = event.clientY - top;
+    setClickPosition({ cx, cy });
   };
 
   const handleClick = () => {
@@ -31,10 +44,11 @@ export default function Canvas() {
   };
 
   const canvasStyle = {
-    height: '95vh',
+    width: `${imageSize.width}px`,
+    height: `${imageSize.height}px`,
     border: '1px solid #ccc',
     backgroundImage: 'url("../../public/room.png")', // Replace with your image path
-    backgroundSize: 'cover',
+    // backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'relative',
   };
@@ -42,17 +56,14 @@ export default function Canvas() {
   return (
     <>
       <div
-      ref={containerRef}
+        ref={canvasRef}
         style={canvasStyle}
         onMouseMove={handleMouseMove}
         onClick={handleClick}
-      >
-        <p>Move your mouse over this div to see the position:</p>
-        <p>
-          X: {mousePosition.x}, Y: {mousePosition.y}
-        </p>
-      </div>
-      {showPopup && <Popup mousePosition={mousePosition} />}
+      ></div>
+      {showPopup && (
+        <Popup mousePosition={mousePosition} clickPosition={clickPosition} />
+      )}
     </>
   );
 }

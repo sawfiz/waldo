@@ -16,17 +16,19 @@ const getRandomImageIndexes = (count) => {
   return shuffled.slice(0, count);
 };
 
-const randomImageIndexes = getRandomImageIndexes( 3);
-console.log("🚀 ~ file: Popup.jsx:20 ~ randomImageIndexes:", randomImageIndexes)
+const randomImageIndexes = getRandomImageIndexes(3);
+console.log(
+  '🚀 ~ file: Popup.jsx:20 ~ randomImageIndexes:',
+  randomImageIndexes
+);
 
-
-export default function Popup({ mousePosition }) {
-  const { x, y } = mousePosition;
+export default function Popup({ mousePosition, clickPosition }) {
+  const { mx, my } = mousePosition;
 
   const componentStyle = {
     position: 'fixed',
-    top: y - 20,
-    left: x - 20,
+    top: my - 20,
+    left: mx - 20,
     backgroundColor: 'rgba(0,0,0,0.1)', // Transparent lightblue background
 
     padding: '10px',
@@ -55,8 +57,14 @@ export default function Popup({ mousePosition }) {
   };
 
   // Create an array of GridItem components mapped from randomImages
-  const gridItems = randomImageIndexes.map(( index) => (
-    <GridItem key={index} image={imagesArray[index]} index={index} alt={`Image ${index + 1}`} mousePosition={mousePosition} />
+  const gridItems = randomImageIndexes.map((index) => (
+    <GridItem
+      key={index}
+      image={imagesArray[index]}
+      index={index}
+      alt={`Image ${index + 1}`}
+      clickPosition={clickPosition}
+    />
   ));
 
   return (

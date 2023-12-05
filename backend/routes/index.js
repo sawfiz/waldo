@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-const location1 = { x: 1000, y: 160 };
-const location2 = { x: 725, y: 155 };
-const location3 = { x: 310, y: 240 };
-const location4 = { x: 600, y: 360 };
-const location5 = { x: 1100, y: 500 };
-const location6 = { x: 550, y: 420 };
-const location7 = { x: 720, y: 370 };
+const location1 = { x: 3850, y: 950 };
+const location2 = { x: 2760, y: 960 };
+const location3 = { x: 1160, y: 1250 };
+const location4 = { x: 2295, y: 1750 };
+const location5 = { x: 4175, y: 2290 };
+const location6 = { x: 2100, y: 1855 };
+const location7 = { x: 2740, y: 1780 };
 
 const locations = [
   location1,
@@ -27,10 +27,10 @@ router.get('/', function (req, res, next) {
 router.post('/click', function (req, res, next) {
   console.log('POST received.');
   console.log(req.body);
-  const {mx, my, index} = req.body;
+  const {cx, cy, index} = req.body;
   const { x, y } = locations[index];
   console.log("🚀 ~ file: index.js:31 ~ locations[index]:", x, y)
-  if (Math.abs(x - mx) < 20 && Math.abs(y - my) < 20) {
+  if (Math.abs(x - cx) < 50 && Math.abs(y - cy) < 50) {
     console.log('you found it!');
     res.status(200).json(true)
   } else {
