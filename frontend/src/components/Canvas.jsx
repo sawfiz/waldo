@@ -45,7 +45,9 @@ export default function Canvas() {
 
   const canvasStyle = {
     width: `${imageSize.width}px`,
+    // width: '100vw',
     height: `${imageSize.height}px`,
+    // height: `calc(100vh - 5rem)`,
     border: '1px solid #ccc',
     backgroundImage: 'url("../../public/room.png")', // Replace with your image path
     // backgroundSize: 'cover',
@@ -54,7 +56,7 @@ export default function Canvas() {
   };
 
   return (
-    <>
+    <div>
       <div
         ref={canvasRef}
         style={canvasStyle}
@@ -64,6 +66,6 @@ export default function Canvas() {
       {showPopup && (
         <Popup mousePosition={mousePosition} clickPosition={clickPosition} />
       )}
-    </>
+    </div>
   );
 }
