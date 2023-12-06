@@ -28,7 +28,7 @@ export default function Home() {
         <Game gameId={3} imageSrc={dragons} />
       </div>
 
-      <div className="mt-20 flex justify-center items-center gap-4">
+      <div className="mt-8 flex justify-center items-top gap-4 mb-10">
         <HighScore gameId={1} />
         <HighScore gameId={2} />
         <HighScore gameId={3} />
