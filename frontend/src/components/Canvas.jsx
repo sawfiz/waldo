@@ -3,12 +3,16 @@ import { GameContext } from '../contexts/GameContext';
 
 import Popup from './Popup';
 
+// Background images
+import room from '../assets/images/room.png';
+import beach from '../assets/images/beach.jpg';
+import dragons from '../assets/images/dragons.webp';
 
-
-export default function Canvas({backgroundImg}) {
-  const {  getThreeRandomItems } = useContext(GameContext);
+export default function Canvas({ game }) {
+  const { setGame, getThreeRandomItems } = useContext(GameContext);
 
   const canvasRef = useRef(null);
+  const [imageSrc, setImageSrc] = useState(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
   const [clickPosition, setClickPosition] = useState({ x: null, y: null });
@@ -18,7 +22,23 @@ export default function Canvas({backgroundImg}) {
   useEffect(() => {
     const loadImage = () => {
       const img = new Image();
-      img.src = backgroundImg;
+      switch (game) {
+        case 1:
+          setImageSrc(room);
+          img.src = room;
+          break;
+        case 2:
+          setImageSrc(beach);
+          img.src = beach;
+          break;
+        case 3:
+          setImageSrc(dragons);
+          img.src = dragons;
+          break;
+
+        default:
+          break;
+      }
       img.onload = () => {
         setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
       };
@@ -52,11 +72,9 @@ export default function Canvas({backgroundImg}) {
 
   const canvasStyle = {
     width: `${imageSize.width}px`,
-    // width: '100vw',
     height: `${imageSize.height}px`,
-    // height: `calc(100vh - 5rem)`,
     border: '1px solid #ccc',
-    backgroundImage: `url(${backgroundImg})`, // Replace with your image path
+    backgroundImage: `url(${imageSrc})`, // Replace with your image path
     // backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'relative',

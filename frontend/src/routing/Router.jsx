@@ -12,17 +12,14 @@ import RootLayout from './RootLayout';
 import Home from '../pages/Home';
 import Canvas from '../components/Canvas';
 
-// Background images
-import room from '../assets/images/room.png';
-import beach from '../assets/images/beach.jpg';
-import dragons from '../assets/images/dragons.webp';
+
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<RootLayout />}>
     <Route index element={<Home />} />
-    <Route path="/game1" element={<Canvas backgroundImg={room} />} />
-    <Route path="/game2" element={<Canvas backgroundImg={beach} />} />
-    <Route path="/game3" element={<Canvas backgroundImg={dragons} />} />
+    <Route path="/game1" element={<Canvas game={1} />} />
+    <Route path="/game2" element={<Canvas game={2} />} />
+    <Route path="/game3" element={<Canvas game={3} />} />
   </Route>
 );
 

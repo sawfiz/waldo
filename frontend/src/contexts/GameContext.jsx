@@ -1,22 +1,40 @@
 import React, { createContext, useState } from 'react';
 
-import { lightImagesArray, beachImagesArray, dragonImagesArray } from '../assets/images';
+import {
+  lightImagesArray,
+  beachImagesArray,
+  dragonImagesArray,
+} from '../assets/images';
 
 const GameContext = createContext();
 
 const GameProvider = ({ children }) => {
   const [gameStart, setGameStart] = useState(false);
-  console.log(
-    '🚀 ~ file: GameContext.jsx:7 ~ GameProvider ~ gameStart:',
-    gameStart
-  );
   const [itemsFound, setItemsFound] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [items, setItems] = useState([]);
-
   const [time, setTime] = useState(0);
+  const [game, setGame] = useState(null);
+  const [imageArray, setImageArray] = useState([]);
 
-  const startGame = () => {
+  const startGame = (game) => {
+    setGame(game);
+    switch (game) {
+      case '1':
+        setImageArray(lightImagesArray);
+        break;
+      case '2':
+        setImageArray(beachImagesArray);
+
+        break;
+      case '3':
+        setImageArray(dragonImagesArray);
+
+        break;
+
+      default:
+        break;
+    }
     setGameStart(true);
     setItemsFound(0);
     setGameOver(false);
@@ -52,16 +70,11 @@ const GameProvider = ({ children }) => {
       console.log('length needs to be greater than 3');
     }
     const randomNumbers = getThreeRandomNumbers(length);
-    console.log(
-      '🚀 ~ file: GameContext.jsx:47 ~ getThreeRandomItems ~ randomNumbers:',
-      randomNumbers
-    );
 
     const items = randomNumbers.map((index) => ({
       index,
       found: false,
     }));
-    console.log('🚀 ~ file: GameContext.jsx:52 ~ items ~ items:', items);
     setItems(items);
   };
 
@@ -89,6 +102,8 @@ const GameProvider = ({ children }) => {
     itemsFound,
     time,
     setTime,
+    game,
+    imageArray,
   };
 
   return (

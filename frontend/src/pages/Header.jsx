@@ -22,7 +22,7 @@ import GridItem from '../components/GridItem';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { gameStart, quitGame, items, itemsFound, time } = useContext(GameContext);
+  const { gameStart, quitGame, items, itemsFound, time, imageArray } = useContext(GameContext);
 
   useEffect(() => {
     if (itemsFound >= 3) {
@@ -43,7 +43,7 @@ export default function Header() {
     .map((item, index) => (
       <GridItem
         key={index}
-        image={dragonImagesArray[item.index]}
+        image={imageArray[item.index]}
         index={item.index}
         alt={`Image ${index + 1}`}
         clickPosition={{ x: 0, y: 0 }}

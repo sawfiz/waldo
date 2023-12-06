@@ -3,10 +3,8 @@ import { GameContext } from '../contexts/GameContext';
 
 import GridItem from './GridItem';
 
-import { lightImagesArray, beachImagesArray } from '../assets/images';
-
 export default function Popup({ mousePosition, clickPosition }) {
-  const { items } = useContext(GameContext);
+  const { items, imageArray } = useContext(GameContext);
 
   const { mx, my } = mousePosition;
 
@@ -47,7 +45,7 @@ export default function Popup({ mousePosition, clickPosition }) {
     .map((item, index) => (
       <GridItem
         key={index}
-        image={beachImagesArray[item.index]}
+        image={imageArray[item.index]}
         index={item.index}
         alt={`Image ${index + 1}`}
         clickPosition={clickPosition}
