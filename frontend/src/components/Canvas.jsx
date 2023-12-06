@@ -9,7 +9,7 @@ import beach from '../assets/images/beach.jpg';
 import dragons from '../assets/images/dragons.webp';
 
 export default function Canvas({ game }) {
-  const { getThreeRandomItems } = useContext(GameContext);
+  const { startGame, getThreeRandomItems } = useContext(GameContext);
 
   const canvasRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
@@ -45,6 +45,7 @@ export default function Canvas({ game }) {
     };
 
     loadImage();
+    startGame(game);
     getThreeRandomItems(7);
   }, []);
 
