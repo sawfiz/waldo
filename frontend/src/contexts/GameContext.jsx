@@ -1,5 +1,7 @@
 import React, { createContext, useState } from 'react';
 
+import { lightImagesArray, beachImagesArray, dragonImagesArray } from '../assets/images';
+
 const GameContext = createContext();
 
 const GameProvider = ({ children }) => {

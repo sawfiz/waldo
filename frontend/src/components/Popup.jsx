@@ -3,21 +3,7 @@ import { GameContext } from '../contexts/GameContext';
 
 import GridItem from './GridItem';
 
-import image1 from '../assets/images/light1.png';
-import image2 from '../assets/images/light2.png';
-import image3 from '../assets/images/light3.png';
-import image4 from '../assets/images/light4.png';
-import image5 from '../assets/images/light5.png';
-import image6 from '../assets/images/light6.png';
-import image7 from '../assets/images/light7.png';
-const imagesArray = [image1, image2, image3, image4, image5, image6, image7];
-
-// const getRandomImageIndexes = (count) => {
-//   const shuffled = [0, 1, 2, 3, 4, 5, 6].sort(() => 0.5 - Math.random());
-//   return shuffled.slice(0, count);
-// };
-
-// const randomImageIndexes = getRandomImageIndexes(3);
+import { lightImagesArray, beachImagesArray } from '../assets/images';
 
 export default function Popup({ mousePosition, clickPosition }) {
   const { items } = useContext(GameContext);
@@ -61,7 +47,7 @@ export default function Popup({ mousePosition, clickPosition }) {
     .map((item, index) => (
       <GridItem
         key={index}
-        image={imagesArray[item.index]}
+        image={beachImagesArray[item.index]}
         index={item.index}
         alt={`Image ${index + 1}`}
         clickPosition={clickPosition}

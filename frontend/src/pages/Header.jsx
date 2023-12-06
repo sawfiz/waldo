@@ -4,14 +4,7 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Config
-import image1 from '../assets/images/light1.png';
-import image2 from '../assets/images/light2.png';
-import image3 from '../assets/images/light3.png';
-import image4 from '../assets/images/light4.png';
-import image5 from '../assets/images/light5.png';
-import image6 from '../assets/images/light6.png';
-import image7 from '../assets/images/light7.png';
-const imagesArray = [image1, image2, image3, image4, image5, image6, image7];
+import { lightImagesArray, beachImagesArray, dragonImagesArray } from '../assets/images';
 
 // Contexts
 import { GameContext } from '../contexts/GameContext';
@@ -50,7 +43,7 @@ export default function Header() {
     .map((item, index) => (
       <GridItem
         key={index}
-        image={imagesArray[item.index]}
+        image={dragonImagesArray[item.index]}
         index={item.index}
         alt={`Image ${index + 1}`}
         clickPosition={{ x: 0, y: 0 }}

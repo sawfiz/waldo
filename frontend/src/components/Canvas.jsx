@@ -3,9 +3,9 @@ import { GameContext } from '../contexts/GameContext';
 
 import Popup from './Popup';
 
-import room from '../assets/images/room.png'
 
-export default function Canvas() {
+
+export default function Canvas({backgroundImg}) {
   const {  getThreeRandomItems } = useContext(GameContext);
 
   const canvasRef = useRef(null);
@@ -18,7 +18,7 @@ export default function Canvas() {
   useEffect(() => {
     const loadImage = () => {
       const img = new Image();
-      img.src = room;
+      img.src = backgroundImg;
       img.onload = () => {
         setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
       };
@@ -56,7 +56,7 @@ export default function Canvas() {
     height: `${imageSize.height}px`,
     // height: `calc(100vh - 5rem)`,
     border: '1px solid #ccc',
-    backgroundImage: `url(${room})`, // Replace with your image path
+    backgroundImage: `url(${backgroundImg})`, // Replace with your image path
     // backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'relative',
