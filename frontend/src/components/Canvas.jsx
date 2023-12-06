@@ -1,7 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { GameContext } from '../contexts/GameContext';
+
 import Popup from './Popup';
 
+import room from '../assets/images/room.png'
+
 export default function Canvas() {
+  const {  getThreeRandomItems } = useContext(GameContext);
+
   const canvasRef = useRef(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
@@ -12,13 +18,14 @@ export default function Canvas() {
   useEffect(() => {
     const loadImage = () => {
       const img = new Image();
-      img.src = '../../public/room.png'; // Replace with your image path
+      img.src = room;
       img.onload = () => {
         setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
       };
     };
 
     loadImage();
+    getThreeRandomItems(7);
   }, []);
 
   const handleMouseMove = (event) => {
@@ -49,7 +56,7 @@ export default function Canvas() {
     height: `${imageSize.height}px`,
     // height: `calc(100vh - 5rem)`,
     border: '1px solid #ccc',
-    backgroundImage: 'url("../../public/room.png")', // Replace with your image path
+    backgroundImage: `url(${room})`, // Replace with your image path
     // backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'relative',

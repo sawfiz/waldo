@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { GameContext } from '../contexts/GameContext';
 
 import GridItem from './GridItem';
 
-import image1 from '../../public/light1.png';
-import image2 from '../../public/light2.png';
-import image3 from '../../public/light3.png';
-import image4 from '../../public/light4.png';
-import image5 from '../../public/light5.png';
-import image6 from '../../public/light6.png';
-import image7 from '../../public/light7.png';
+import image1 from '../assets/images/light1.png';
+import image2 from '../assets/images/light2.png';
+import image3 from '../assets/images/light3.png';
+import image4 from '../assets/images/light4.png';
+import image5 from '../assets/images/light5.png';
+import image6 from '../assets/images/light6.png';
+import image7 from '../assets/images/light7.png';
 const imagesArray = [image1, image2, image3, image4, image5, image6, image7];
 
-const getRandomImageIndexes = (count) => {
-  const shuffled = [0, 1, 2, 3, 4, 5, 6].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-};
+// const getRandomImageIndexes = (count) => {
+//   const shuffled = [0, 1, 2, 3, 4, 5, 6].sort(() => 0.5 - Math.random());
+//   return shuffled.slice(0, count);
+// };
 
-const randomImageIndexes = getRandomImageIndexes(3);
-console.log(
-  '🚀 ~ file: Popup.jsx:20 ~ randomImageIndexes:',
-  randomImageIndexes
-);
+// const randomImageIndexes = getRandomImageIndexes(3);
 
 export default function Popup({ mousePosition, clickPosition }) {
+  const { items } = useContext(GameContext);
+
   const { mx, my } = mousePosition;
 
   const componentStyle = {
@@ -57,15 +56,17 @@ export default function Popup({ mousePosition, clickPosition }) {
   };
 
   // Create an array of GridItem components mapped from randomImages
-  const gridItems = randomImageIndexes.map((index) => (
-    <GridItem
-      key={index}
-      image={imagesArray[index]}
-      index={index}
-      alt={`Image ${index + 1}`}
-      clickPosition={clickPosition}
-    />
-  ));
+  const gridItems = items
+    .filter((item) => !item.found)
+    .map((item, index) => (
+      <GridItem
+        key={index}
+        image={imagesArray[item.index]}
+        index={item.index}
+        alt={`Image ${index + 1}`}
+        clickPosition={clickPosition}
+      />
+    ));
 
   return (
     <div style={componentStyle}>

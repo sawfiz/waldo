@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { GameContext } from '../contexts/GameContext';
 
 // Vite handles .env differently from create-react-app
 const BASE_URL = import.meta.env.VITE_BASE_URL; // Set the base URL
 
 const GridItem = ({ image, index, alt, clickPosition }) => {
+  const {foundItem} = useContext(GameContext)
   const { cx, cy } = clickPosition;
 
   const [show, setShow] = useState(true);
@@ -13,6 +15,7 @@ const GridItem = ({ image, index, alt, clickPosition }) => {
     const response = await axios.post(`${BASE_URL}/click`, { cx, cy, index });
     if (response.data === true) {
       alert('You found it!');
+      foundItem(index)
     } else {
       alert('Try again!');
     }
