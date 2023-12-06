@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import {
   lightImagesArray,
@@ -11,7 +11,6 @@ const GameContext = createContext();
 const GameProvider = ({ children }) => {
   const [gameStart, setGameStart] = useState(false);
   const [itemsFound, setItemsFound] = useState(0);
-  const [gameOver, setGameOver] = useState(false);
   const [items, setItems] = useState([]);
   const [time, setTime] = useState(0);
   const [game, setGame] = useState(null);
@@ -37,7 +36,6 @@ const GameProvider = ({ children }) => {
     }
     setGameStart(true);
     setItemsFound(0);
-    setGameOver(false);
   };
 
   const quitGame = () => {

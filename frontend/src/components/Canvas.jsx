@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { GameContext } from '../contexts/GameContext';
 
 import Popup from './Popup';
@@ -80,7 +80,7 @@ export default function Canvas({ game }) {
   };
 
   return (
-    <div className='flex justify-center'>
+    <div>
       <div
         ref={canvasRef}
         style={canvasStyle}

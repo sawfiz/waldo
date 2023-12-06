@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { GameContext } from '../contexts/GameContext';
 
 import GridItem from './GridItem';

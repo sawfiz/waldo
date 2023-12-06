@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 
 import { GameContext } from '../contexts/GameContext';
@@ -7,14 +7,16 @@ import { GameContext } from '../contexts/GameContext';
 const BASE_URL = import.meta.env.VITE_BASE_URL; // Set the base URL
 
 const GridItem = ({ image, index, alt, clickPosition }) => {
-
   const { foundItem, game } = useContext(GameContext);
   const { cx, cy } = clickPosition;
 
-  const [show, setShow] = useState(true);
-
   const handleClick = async () => {
-    const response = await axios.post(`${BASE_URL}/click`, {game, cx, cy, index });
+    const response = await axios.post(`${BASE_URL}/click`, {
+      game,
+      cx,
+      cy,
+      index,
+    });
     if (response.data === true) {
       alert('You found it!');
       foundItem(index);
@@ -31,17 +33,9 @@ const GridItem = ({ image, index, alt, clickPosition }) => {
     cursor: 'pointer',
   };
   return (
-    <>
-      {show && (
-        <div style={gridItemStyle} onClick={handleClick}>
-          <img
-            src={image}
-            alt={alt}
-            style={{ width: '60px', height: '60px' }}
-          />
-        </div>
-      )}
-    </>
+    <div style={gridItemStyle} onClick={handleClick}>
+      <img src={image} alt={alt} style={{ width: '60px', height: '60px' }} />
+    </div>
   );
 };
 

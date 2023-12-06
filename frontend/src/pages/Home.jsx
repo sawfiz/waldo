@@ -1,9 +1,5 @@
 // Libraries
-import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { format } from 'date-fns';
+import { useContext, useEffect } from 'react';
 
 import { GameContext } from '../contexts/GameContext';
 
@@ -19,10 +15,10 @@ import dragons from '../assets/images/dragons.webp';
 export default function Home() {
   const { quitGame } = useContext(GameContext);
 
-  useEffect (() => {
+  useEffect(() => {
     // In case user use browser backbutton go back to the home page, quit the current game
     quitGame();
-  }, [])
+  }, []);
 
   return (
     <main>
