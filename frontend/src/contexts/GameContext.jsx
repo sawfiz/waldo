@@ -10,7 +10,7 @@ const GameProvider = ({ children }) => {
   );
   const [itemsFound, setItemsFound] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
 
   const startGame = () => {
     setGameStart(true);
@@ -45,28 +45,47 @@ const GameProvider = ({ children }) => {
 
   const getThreeRandomItems = (length) => {
     if (!length || length < 3) {
-      console.log("length needs to be greater than 3");
+      console.log('length needs to be greater than 3');
     }
     const randomNumbers = getThreeRandomNumbers(length);
-    console.log("🚀 ~ file: GameContext.jsx:47 ~ getThreeRandomItems ~ randomNumbers:", randomNumbers)
+    console.log(
+      '🚀 ~ file: GameContext.jsx:47 ~ getThreeRandomItems ~ randomNumbers:',
+      randomNumbers
+    );
 
     const items = randomNumbers.map((index) => ({
       index,
-      found: false
+      found: false,
     }));
-    console.log("🚀 ~ file: GameContext.jsx:52 ~ items ~ items:", items)
+    console.log('🚀 ~ file: GameContext.jsx:52 ~ items ~ items:', items);
     setItems(items);
   };
 
   const foundItem = (index) => {
-    setItems(prevItems =>
+    setItems((prevItems) =>
       prevItems.map((item) =>
         item.index === index ? { ...item, found: true } : item
       )
     );
+    incrementItemsFound();
   };
 
-  const gameContextValue = { gameStart, startGame, quitGame, getThreeRandomItems, items, foundItem };
+  // Function to increment itemsFound by 1
+  const incrementItemsFound = () => {
+    setItemsFound((prevItemsFound) => prevItemsFound + 1);
+  };
+
+  
+
+  const gameContextValue = {
+    gameStart,
+    startGame,
+    quitGame,
+    getThreeRandomItems,
+    items,
+    foundItem,
+    itemsFound,
+  };
 
   return (
     <GameContext.Provider value={gameContextValue}>
