@@ -1,7 +1,13 @@
 var express = require('express');
 var router = express.Router();
+// Model
+const Score = require('../models/score');
 
-const { roomLocations, beachLocations, dragonLocations } = require('./locations');
+const {
+  roomLocations,
+  beachLocations,
+  dragonLocations,
+} = require('./locations');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -37,6 +43,21 @@ router.post('/click', function (req, res, next) {
     res.status(200).json(false);
     console.log('Try again');
   }
+});
+
+router.post('/submit', async function (req, res, next) {
+  console.log('POST received.');
+  console.log(req.body);
+
+  const score = new Score({
+    game: req.body.game,
+    name: req.body.name,
+    time: req.body.time,
+    date: req.body.date,
+
+  });
+  await score.save();
+  res.status(201).json({ message: 'Success' });
 });
 
 module.exports = router;

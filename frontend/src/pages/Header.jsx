@@ -1,10 +1,7 @@
 // Libraries
-import { Link } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-// Config
-import { lightImagesArray, beachImagesArray, dragonImagesArray } from '../assets/images';
+import axios from 'axios';
 
 // Contexts
 import { GameContext } from '../contexts/GameContext';
@@ -12,22 +9,28 @@ import { GameContext } from '../contexts/GameContext';
 // Components
 import Timer from '../components/Timer';
 
+// Vite handles .env differently from create-react-app
+const BASE_URL = import.meta.env.VITE_BASE_URL; // Set the base URL
+
 // Styling
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavbarBrand from 'react-bootstrap/esm/NavbarBrand';
-import { Button } from 'react-bootstrap';
+import { Button, Modal, Form, InputGroup } from 'react-bootstrap';
 import GridItem from '../components/GridItem';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { gameStart, quitGame, items, itemsFound, time, imageArray } = useContext(GameContext);
+  const { gameStart, quitGame, items, itemsFound, time, imageArray, game } =
+    useContext(GameContext);
+
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     if (itemsFound >= 3) {
       quitGame();
-      alert(`You win! You did it in ${time} seconds!`);
+      setShowModal(true);
       navigate('/');
     }
   }, [itemsFound, time, quitGame, navigate]);
@@ -60,6 +63,30 @@ export default function Header() {
     pointerEvents: 'none',
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    setShowModal(false)
+    try {
+      const response = await axios.post(`${BASE_URL}/submit`, {
+        game,
+        name,
+        time,
+        date: new Date(),
+      });
+      console.log("🚀 ~ file: Header.jsx:78 ~ handleSubmit ~ response:", response)
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="fixed top-0 w-full z-10">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -76,6 +103,29 @@ export default function Header() {
           )}
         </Container>
       </Navbar>
+
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>You win!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          You did it in {time} seconds!
+          <div>
+            Please enter your name
+            <InputGroup className="mb-3">
+              <Form.Control
+                type="text"
+                name="mobile"
+                value={name}
+                onChange={handleChange}
+              />
+            </InputGroup>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleSubmit}>Submit</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
