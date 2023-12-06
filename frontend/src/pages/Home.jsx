@@ -7,42 +7,31 @@ import { format } from 'date-fns';
 
 import { GameContext } from '../contexts/GameContext';
 
-
-
 // Components
 import Game from '../components/Game';
 import HighScore from '../components/HighScore';
-
-
 
 // Background images
 import room from '../assets/images/room.png';
 import beach from '../assets/images/beach.jpg';
 import dragons from '../assets/images/dragons.webp';
 
-
-
 export default function Home() {
   const navigate = useNavigate();
   const { startGame } = useContext(GameContext);
 
-
-
-
-
-
   return (
     <main>
       <div className="mt-20 flex justify-center items-center gap-4">
-       <Game gameId={1} imageSrc={room} />
-       <Game gameId={2} imageSrc={beach} />
-       <Game gameId={3} imageSrc={dragons} />
+        <Game gameId={1} imageSrc={room} />
+        <Game gameId={2} imageSrc={beach} />
+        <Game gameId={3} imageSrc={dragons} />
       </div>
 
       <div className="mt-20 flex justify-center items-center gap-4">
-        <HighScore />
-        <HighScore />
-        <HighScore />
+        <HighScore gameId={1} />
+        <HighScore gameId={2} />
+        <HighScore gameId={3} />
       </div>
     </main>
   );

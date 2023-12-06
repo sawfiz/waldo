@@ -80,7 +80,6 @@ export default function Header() {
         time,
         date: new Date(),
       });
-      console.log("🚀 ~ file: Header.jsx:78 ~ handleSubmit ~ response:", response)
 
     } catch (err) {
       console.log(err);

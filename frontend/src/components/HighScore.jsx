@@ -8,19 +8,15 @@ import { format } from 'date-fns';
 const BASE_URL = import.meta.env.VITE_BASE_URL; // Set the base URL
 
 // Styling
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
-export default function HighScore() {
+export default function HighScore({ gameId }) {
   const [scores, setScores] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/scores`);
-        console.log(
-          '🚀 ~ file: Home.jsx:31 ~ fetchData ~ response:',
-          response.data.scores_list
-        );
+        const response = await axios.get(`${BASE_URL}/scores?game=${gameId}`);
         setScores(response.data.scores_list);
       } catch (error) {
         console.log('🚀 ~ file: Home.jsx:33 ~ fetchData ~ error:', error);
@@ -46,15 +42,13 @@ export default function HighScore() {
     <Card bg="light" style={{ width: '18rem' }}>
       <Card.Body>
         <Card.Title>High Score</Card.Title>
-        <Card.Text>
-          <div className="grid grid-flow-col ">
-            <div style={{ width: '2rem' }}>No</div>
-            <div style={{ width: '3rem' }}>Time</div>
-            <div style={{ width: '4rem' }}>Name</div>
-            <div style={{ width: '4rem' }}>Date</div>
-          </div>
-          {scoresList}
-        </Card.Text>
+        <div className="grid grid-flow-col ">
+          <div style={{ width: '2rem' }}>No</div>
+          <div style={{ width: '3rem' }}>Time</div>
+          <div style={{ width: '4rem' }}>Name</div>
+          <div style={{ width: '4rem' }}>Date</div>
+        </div>
+        {scoresList}
       </Card.Body>
     </Card>
   );
