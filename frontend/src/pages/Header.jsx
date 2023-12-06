@@ -29,15 +29,15 @@ import GridItem from '../components/GridItem';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { gameStart, quitGame, items, itemsFound } = useContext(GameContext);
+  const { gameStart, quitGame, items, itemsFound, time } = useContext(GameContext);
 
   useEffect(() => {
     if (itemsFound >= 3) {
-      alert('You have won!');
       quitGame();
+      alert(`You win! You did it in ${time} seconds!`);
       navigate('/');
     }
-  }, [itemsFound]);
+  }, [itemsFound, time, quitGame, navigate]);
 
   const handleClick = () => {
     quitGame();

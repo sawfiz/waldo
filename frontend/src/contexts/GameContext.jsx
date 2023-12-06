@@ -12,6 +12,8 @@ const GameProvider = ({ children }) => {
   const [gameOver, setGameOver] = useState(false);
   const [items, setItems] = useState([]);
 
+  const [time, setTime] = useState(0);
+
   const startGame = () => {
     setGameStart(true);
     setItemsFound(0);
@@ -75,8 +77,6 @@ const GameProvider = ({ children }) => {
     setItemsFound((prevItemsFound) => prevItemsFound + 1);
   };
 
-  
-
   const gameContextValue = {
     gameStart,
     startGame,
@@ -85,6 +85,8 @@ const GameProvider = ({ children }) => {
     items,
     foundItem,
     itemsFound,
+    time,
+    setTime,
   };
 
   return (
