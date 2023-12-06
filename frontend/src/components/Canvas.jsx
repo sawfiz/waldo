@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useContext } from 'react';
 import { GameContext } from '../contexts/GameContext';
 
 import Popup from './Popup';
+import Alert from './Alert';
 
 // Background images
 import room from '../assets/images/room.png';
@@ -9,7 +10,7 @@ import beach from '../assets/images/beach.jpg';
 import dragons from '../assets/images/dragons.webp';
 
 export default function Canvas({ game }) {
-  const { startGame, getThreeRandomItems } = useContext(GameContext);
+  const { startGame, getThreeRandomItems, showGreenAlert, showRedAlert } = useContext(GameContext);
 
   const canvasRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
@@ -91,6 +92,8 @@ export default function Canvas({ game }) {
       {showPopup && (
         <Popup mousePosition={mousePosition} clickPosition={clickPosition} />
       )}
+      {showGreenAlert && <Alert message={'Well done!'} color={'green'} />}
+      {showRedAlert && <Alert message={'Try again!'} color={'red'} />}
     </div>
   );
 }

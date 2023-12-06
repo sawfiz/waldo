@@ -15,6 +15,8 @@ const GameProvider = ({ children }) => {
   const [time, setTime] = useState(0);
   const [game, setGame] = useState(null);
   const [imageArray, setImageArray] = useState([]);
+  const [showGreenAlert, setShowGreenAlert] = useState(false);
+  const [showRedAlert, setShowRedAlert] = useState(false);
 
   const startGame = (game) => {
     setGame(game);
@@ -76,19 +78,37 @@ const GameProvider = ({ children }) => {
     setItems(items);
   };
 
-  const foundItem = (index) => {
+  const foundItem = async (index) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
         item.index === index ? { ...item, found: true } : item
       )
     );
     incrementItemsFound();
+    setShowGreenAlert(true);
+    await delay(2000);
+    setShowGreenAlert(false);
   };
+
+  const tryAgain = async (index) => {
+
+    setShowRedAlert(true);
+    await delay(2000);
+    setShowRedAlert(false);
+  };
+
+
 
   // Function to increment itemsFound by 1
   const incrementItemsFound = () => {
     setItemsFound((prevItemsFound) => prevItemsFound + 1);
   };
+
+  function delay(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
 
   const gameContextValue = {
     gameStart,
@@ -97,11 +117,14 @@ const GameProvider = ({ children }) => {
     getThreeRandomItems,
     items,
     foundItem,
+    tryAgain,
     itemsFound,
     time,
     setTime,
     game,
     imageArray,
+    showGreenAlert,
+    showRedAlert,
   };
 
   return (

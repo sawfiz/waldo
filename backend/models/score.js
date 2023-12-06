@@ -7,7 +7,7 @@ const schema = new Schema(
   {
     game: { type: String, require: true, maxlength: 20 },
     name: { type: String, require: true, maxlength: 20 },
-    time: { type: String, require: true, maxlength: 20},
+    time: { type: Number, require: true, maxlength: 20},
     date: { type: Date },
   }
 );

@@ -7,7 +7,7 @@ import { GameContext } from '../contexts/GameContext';
 const BASE_URL = import.meta.env.VITE_BASE_URL; // Set the base URL
 
 const GridItem = ({ image, index, alt, clickPosition }) => {
-  const { foundItem, game } = useContext(GameContext);
+  const { foundItem, game, tryAgain } = useContext(GameContext);
   const { cx, cy } = clickPosition;
 
   const handleClick = async () => {
@@ -18,10 +18,9 @@ const GridItem = ({ image, index, alt, clickPosition }) => {
       index,
     });
     if (response.data === true) {
-      alert('You found it!');
       foundItem(index);
     } else {
-      alert('Try again!');
+      tryAgain();
     }
   };
 
@@ -33,9 +32,11 @@ const GridItem = ({ image, index, alt, clickPosition }) => {
     cursor: 'pointer',
   };
   return (
-    <div style={gridItemStyle} onClick={handleClick}>
-      <img src={image} alt={alt} style={{ width: '60px', height: '60px' }} />
-    </div>
+    <>
+      <div style={gridItemStyle} onClick={handleClick}>
+        <img src={image} alt={alt} style={{ width: '60px', height: '60px' }} />
+      </div>
+    </>
   );
 };
 
