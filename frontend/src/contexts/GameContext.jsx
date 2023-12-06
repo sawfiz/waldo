@@ -20,14 +20,14 @@ const GameProvider = ({ children }) => {
   const startGame = (game) => {
     setGame(game);
     switch (game) {
-      case '1':
+      case 1:
         setImageArray(lightImagesArray);
         break;
-      case '2':
+      case 2:
         setImageArray(beachImagesArray);
 
         break;
-      case '3':
+      case 3:
         setImageArray(dragonImagesArray);
 
         break;
