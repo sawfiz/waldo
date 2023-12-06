@@ -17,8 +17,12 @@ import beach from '../assets/images/beach.jpg';
 import dragons from '../assets/images/dragons.webp';
 
 export default function Home() {
-  const navigate = useNavigate();
-  const { startGame } = useContext(GameContext);
+  const { quitGame } = useContext(GameContext);
+
+  useEffect (() => {
+    // In case user use browser backbutton go back to the home page, quit the current game
+    quitGame();
+  }, [])
 
   return (
     <main>

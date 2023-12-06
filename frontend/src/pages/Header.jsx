@@ -31,7 +31,6 @@ export default function Header() {
     if (itemsFound >= 3) {
       quitGame();
       setShowModal(true);
-      navigate('/');
     }
   }, [itemsFound, time, quitGame, navigate]);
 
@@ -72,15 +71,15 @@ export default function Header() {
   };
 
   const handleSubmit = async () => {
-    setShowModal(false)
     try {
+      setShowModal(false)
       const response = await axios.post(`${BASE_URL}/submit`, {
         game,
         name,
         time,
         date: new Date(),
       });
-
+      navigate('/')
     } catch (err) {
       console.log(err);
     }

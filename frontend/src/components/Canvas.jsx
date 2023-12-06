@@ -75,13 +75,12 @@ export default function Canvas({ game }) {
     height: `${imageSize.height}px`,
     border: '1px solid #ccc',
     backgroundImage: `url(${imageSrc})`, // Replace with your image path
-    // backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'relative',
   };
 
   return (
-    <div>
+    <div className='flex justify-center'>
       <div
         ref={canvasRef}
         style={canvasStyle}
