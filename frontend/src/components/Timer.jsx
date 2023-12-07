@@ -24,7 +24,7 @@ const Timer = () => {
   }, [gameOver, timer, setTime]);
 
   return (
-    <div>
+    <div className='w-40'>
       <p className='text-white'>Timer: {timer} seconds</p>
     </div>
   );
